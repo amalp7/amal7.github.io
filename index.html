@@ -217,8 +217,64 @@
             </div>
           </div>
 
-        
-  
+           <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script>
+      $(document).ready(function(){
+        $("#myNavbar a").on('click', function(event) {
+            if (this.hash !== "") {
+              event.preventDefault();
+              var hash = this.hash;
+              $('html, body').animate({
+                scrollTop: $(hash).offset().top
+              }, 800, function(){
+                window.location.hash = hash;
+              });
+            }
+          });
+        });
+
+        var years=0, months=0;
+
+        var a = new Date();
+        var b = new Date('2018-08-01');
+        var days = Math.floor((a - b) / (60 * 60 * 24 * 1000));
+        var m = Math.floor(days/30);
+      $('#exp tbody tr td:nth-child(5)').each( function(){
+         var value = ($(this).text()).split(" ");
+         if(value[2]=="Years"){
+           years += parseInt(value[1]);
+         }
+         else if(value[2]=="Months"){
+           months += parseInt(value[1]);
+         }
+      });
+      months = months + m;
+      var i = months % 12;
+      var j = parseInt(months / 12);
+      years += j;
+      months = i;
+      var data="";
+      if(years>0)
+        data = years + " Years ";
+      if(months>0)
+        data += months + " Month(s)";
+      $("#e").text(data);
+
+      var lastModified = document.lastModified;
+      $("#last").text(lastModified);
+    </script>
   </body>
 
 </html>
+
